@@ -1,0 +1,9 @@
+{
+  "id": "08-negative-list-param",
+  "module": "collect",
+  "rules": [],
+  "description": "Unannotated parameter that is a list: must be left alone",
+  "kind": "negative",
+  "strict": false,
+  "difficulty": "easy"
+}

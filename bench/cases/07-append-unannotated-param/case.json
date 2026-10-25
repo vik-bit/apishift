@@ -1,0 +1,11 @@
+{
+  "id": "07-append-unannotated-param",
+  "module": "batches",
+  "rules": [
+    "PD001"
+  ],
+  "description": "Receiver type unknown to the scanner (unannotated parameter)",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}

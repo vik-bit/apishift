@@ -1,0 +1,11 @@
+{
+  "id": "03-append-list-of-frames",
+  "module": "quarters",
+  "rules": [
+    "PD001"
+  ],
+  "description": "append() with a list of DataFrames",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}

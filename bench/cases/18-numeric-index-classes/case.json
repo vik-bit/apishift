@@ -1,0 +1,11 @@
+{
+  "id": "18-numeric-index-classes",
+  "module": "indexes",
+  "rules": [
+    "PD010"
+  ],
+  "description": "pd.Int64Index and pd.Float64Index",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

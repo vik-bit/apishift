@@ -1,0 +1,11 @@
+{
+  "id": "13-lookup",
+  "module": "picks",
+  "rules": [
+    "PD005"
+  ],
+  "description": "DataFrame.lookup",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "hard"
+}

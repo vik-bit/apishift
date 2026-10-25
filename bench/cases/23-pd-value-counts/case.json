@@ -1,0 +1,11 @@
+{
+  "id": "23-pd-value-counts",
+  "module": "tally",
+  "rules": [
+    "PD106"
+  ],
+  "description": "pd.value_counts (deprecated: strict mode)",
+  "kind": "positive",
+  "strict": true,
+  "difficulty": "medium"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "11-mad",
+  "module": "spread",
+  "rules": [
+    "PD003"
+  ],
+  "description": "Series.mad and DataFrame.mad (one receiver unannotated)",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}

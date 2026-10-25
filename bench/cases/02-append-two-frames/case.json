@@ -1,0 +1,11 @@
+{
+  "id": "02-append-two-frames",
+  "module": "months",
+  "rules": [
+    "PD001"
+  ],
+  "description": "Concatenate two DataFrames, keeping their index",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

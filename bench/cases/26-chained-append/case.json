@@ -1,0 +1,11 @@
+{
+  "id": "26-chained-append",
+  "module": "extend",
+  "rules": [
+    "PD001"
+  ],
+  "description": "append inside a method chain",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

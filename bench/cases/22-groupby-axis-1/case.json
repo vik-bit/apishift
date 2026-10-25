@@ -1,0 +1,11 @@
+{
+  "id": "22-groupby-axis-1",
+  "module": "wide",
+  "rules": [
+    "PD105"
+  ],
+  "description": "groupby(axis=1) (deprecated: strict mode)",
+  "kind": "positive",
+  "strict": true,
+  "difficulty": "hard"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "19-pd-np-and-datetime",
+  "module": "calendar_utils",
+  "rules": [
+    "PD011",
+    "PD012"
+  ],
+  "description": "pd.np and pd.datetime",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "17-set-axis-inplace",
+  "module": "rename",
+  "rules": [
+    "PD009"
+  ],
+  "description": "set_axis(..., inplace=True)",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}

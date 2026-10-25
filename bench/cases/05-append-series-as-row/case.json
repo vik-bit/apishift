@@ -1,0 +1,11 @@
+{
+  "id": "05-append-series-as-row",
+  "module": "scoreboard",
+  "rules": [
+    "PD001"
+  ],
+  "description": "Append a Series as a new row of a DataFrame",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "hard"
+}

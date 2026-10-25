@@ -1,0 +1,11 @@
+{
+  "id": "06-append-in-class",
+  "module": "ledger",
+  "rules": [
+    "PD001"
+  ],
+  "description": "DataFrame held on self, next to a list that must stay a list",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "hard"
+}

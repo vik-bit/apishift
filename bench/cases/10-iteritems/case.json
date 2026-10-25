@@ -1,0 +1,11 @@
+{
+  "id": "10-iteritems",
+  "module": "columns",
+  "rules": [
+    "PD002"
+  ],
+  "description": "DataFrame.iteritems and Series.iteritems",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

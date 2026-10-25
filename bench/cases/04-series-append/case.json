@@ -1,0 +1,11 @@
+{
+  "id": "04-series-append",
+  "module": "readings",
+  "rules": [
+    "PD001"
+  ],
+  "description": "Series.append with ignore_index",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

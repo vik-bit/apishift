@@ -1,0 +1,11 @@
+{
+  "id": "27-append-verify-integrity",
+  "module": "unique",
+  "rules": [
+    "PD001"
+  ],
+  "description": "append(verify_integrity=True) must still reject duplicate labels",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}

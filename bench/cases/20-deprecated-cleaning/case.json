@@ -1,0 +1,13 @@
+{
+  "id": "20-deprecated-cleaning",
+  "module": "cleaning",
+  "rules": [
+    "PD101",
+    "PD102",
+    "PD103"
+  ],
+  "description": "applymap, fillna(method=) and backfill (deprecated: strict mode)",
+  "kind": "positive",
+  "strict": true,
+  "difficulty": "easy"
+}

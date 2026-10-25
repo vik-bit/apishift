@@ -1,0 +1,11 @@
+{
+  "id": "01-append-dict-rows",
+  "module": "orders",
+  "rules": [
+    "PD001"
+  ],
+  "description": "Build a frame row by row with append(dict) from an empty frame",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "hard"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "15-to-csv-line-terminator",
+  "module": "export",
+  "rules": [
+    "PD007"
+  ],
+  "description": "to_csv(line_terminator=)",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

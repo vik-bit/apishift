@@ -1,0 +1,9 @@
+{
+  "id": "28-negative-no-pandas",
+  "module": "store",
+  "rules": [],
+  "description": "No pandas in this file: a custom .iteritems() must not be touched",
+  "kind": "negative",
+  "strict": false,
+  "difficulty": "easy"
+}

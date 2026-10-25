@@ -1,0 +1,9 @@
+{
+  "id": "09-negative-custom-class",
+  "module": "buffer",
+  "rules": [],
+  "description": "A class of our own with an .append method",
+  "kind": "negative",
+  "strict": false,
+  "difficulty": "easy"
+}

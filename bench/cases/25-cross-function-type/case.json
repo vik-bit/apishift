@@ -1,0 +1,11 @@
+{
+  "id": "25-cross-function-type",
+  "module": "totals",
+  "rules": [
+    "PD001"
+  ],
+  "description": "DataFrame type inferred through a helper's return value",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}

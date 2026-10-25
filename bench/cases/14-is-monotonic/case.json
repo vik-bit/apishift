@@ -1,0 +1,11 @@
+{
+  "id": "14-is-monotonic",
+  "module": "checks",
+  "rules": [
+    "PD006"
+  ],
+  "description": "is_monotonic on a Series and an Index",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

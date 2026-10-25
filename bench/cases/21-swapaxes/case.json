@@ -1,0 +1,11 @@
+{
+  "id": "21-swapaxes",
+  "module": "flip",
+  "rules": [
+    "PD104"
+  ],
+  "description": "DataFrame.swapaxes (deprecated: strict mode)",
+  "kind": "positive",
+  "strict": true,
+  "difficulty": "medium"
+}

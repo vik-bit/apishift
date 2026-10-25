@@ -1,0 +1,11 @@
+{
+  "id": "16-read-csv-squeeze",
+  "module": "loader",
+  "rules": [
+    "PD008"
+  ],
+  "description": "read_csv(squeeze=True) returning a Series",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy"
+}

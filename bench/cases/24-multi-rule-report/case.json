@@ -1,0 +1,14 @@
+{
+  "id": "24-multi-rule-report",
+  "module": "regional",
+  "rules": [
+    "PD001",
+    "PD002",
+    "PD003",
+    "PD007"
+  ],
+  "description": "A small reporting script with four removed APIs",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "hard"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "12-groupby-mad",
+  "module": "teams",
+  "rules": [
+    "PD004"
+  ],
+  "description": "GroupBy.mad",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium"
+}
