@@ -79,12 +79,18 @@ def run_eval(modes: list[str], only: str | None = None, log: Callable[[str], Non
         log(f"  → {summarise(scores)['fixed']}/{summarise(scores)['positive']} fixed")
     out_dir = PROJECT_ROOT / "bench" / "results"
     out_dir.mkdir(parents=True, exist_ok=True)
-    (out_dir / "results.json").write_text(json.dumps({
+    full = set(results) == set(MODES) and only is None
+    name = "results.json" if full else f"partial-{'-'.join(results)}{'-' + only if only else ''}.json"
+    (out_dir / name).write_text(json.dumps({
         "date": date.today().isoformat(), "model": settings.model,
         "summary": {m: summarise(s) for m, s in results.items()},
         "cases": {m: to_json(s) for m, s in results.items()},
     }, indent=2, ensure_ascii=False), encoding="utf-8")
     md = write_markdown(results, settings.model, len(cases))
-    (PROJECT_ROOT / "docs" / "EVAL_RESULTS.md").write_text(md, encoding="utf-8")
-    log("Wrote docs/EVAL_RESULTS.md and bench/results/results.json")
+    if full:  # only a complete run may replace the published results
+        (PROJECT_ROOT / "docs" / "EVAL_RESULTS.md").write_text(md, encoding="utf-8")
+        log("Wrote docs/EVAL_RESULTS.md and bench/results/results.json")
+    else:
+        print(md)
+        log(f"Partial run: wrote bench/results/{name} (docs/EVAL_RESULTS.md left unchanged)")
     return results
