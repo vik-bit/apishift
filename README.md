@@ -15,6 +15,8 @@ by running your tests, and opens a pull request.**
 [Why it's hard](#why-its-hard) · [Results](#results) · [How it works](#how-it-works) · [Use it](#use-it) ·
 [System design](docs/SYSTEM_DESIGN.md) · [Rules](docs/RULES.md)
 
+**▶ See a real pull request it opened: [vik-bit/apishift-demo#1](https://github.com/vik-bit/apishift-demo/pull/1)**
+
 </div>
 
 ---
@@ -27,6 +29,24 @@ by running your tests, and opens a pull request.**
 | **What I built** | A static analyser with **dataflow type inference** that finds every removed API and tells `DataFrame.append` apart from `list.append`. **Codemods** at exact AST positions fix the mechanical cases. An **LLM fixer** handles the rest, and every change it makes has to **pass the project's own tests**; failures go back to the model with the pytest output. It ships as a CLI and a **GitHub Action that opens a PR**. |
 | **Result (measured)** | On a 28-case benchmark with ground-truth tests: **APIShift fixed 25/25 (100%)**, vs **44%** for codemods alone and **96%** for the LLM alone, using **22% fewer tokens** than the LLM alone, and left all 3 "don't touch this" cases untouched. The one case only APIShift solved was caught by its test-feedback loop. [Details ↓](#results) |
 | **Skills shown** | Compilers-style program analysis (AST, type lattice, inter-procedural inference) · LLM agents with verify-and-retry · test-driven verification · benchmark design with negative controls · GitHub automation · zero-dependency core |
+
+---
+
+## See it work
+
+[**vik-bit/apishift-demo#1**](https://github.com/vik-bit/apishift-demo/pull/1) is a real pull request
+APIShift opened on a small sales-report package written for pandas 1.x.
+
+| | |
+|---|---|
+| Found | 6 removed APIs in 2 files (`append`, `mad`, `iteritems` ×2, `to_csv(line_terminator=)`, `read_csv(squeeze=)`) |
+| Fixed | 4 by exact codemods, 2 by the LLM |
+| Verified | Tests **4 failing → 0 failing** under pandas 2.2 in strict mode. The LLM's first attempt was rejected by the tests, and only the passing second attempt was kept |
+| Left alone | `self.warnings.append(...)` (a list) on the line next to the DataFrame append |
+| Diff | +10 −13. Comments and formatting untouched |
+
+For the row-by-row `append`, it chose `self.summary.loc[len(self.summary)] = {...}`, which avoids the
+`pd.concat`-with-an-empty-frame warning that trips up the one-shot LLM on the benchmark.
 
 ---
 
