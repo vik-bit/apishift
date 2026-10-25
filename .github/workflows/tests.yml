@@ -1,0 +1,28 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install
+        run: pip install -e ".[dev]"
+      # No API keys needed: the fixer loop runs against a scripted LLM, and the benchmark check
+      # proves every case is fair (fails on the old code, passes on the reference fix).
+      - name: Unit tests and benchmark fairness check
+        run: APISHIFT_PROVIDER=none python -m pytest -q
+      - name: APIShift scans its own benchmark
+        run: python -m apishift scan bench/cases --format sarif > apishift.sarif

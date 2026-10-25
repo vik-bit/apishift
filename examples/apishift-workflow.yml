@@ -1,0 +1,28 @@
+# Copy to .github/workflows/apishift.yml in your repository.
+# It runs weekly (and on demand) and opens a pull request with any pandas migrations.
+#
+# Setup:
+#   1. Add a GROQ_API_KEY secret (free key at console.groq.com), or use provider: none for codemods only.
+#   2. Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+name: APIShift
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: vik-bit/apishift@main
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        with:
+          provider: groq
+          install: pip install -r requirements.txt "pandas>=2.2,<3"

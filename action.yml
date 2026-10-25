@@ -1,0 +1,58 @@
+name: APIShift pandas migration
+description: >
+  Finds pandas APIs removed in 2.x, fixes them (deterministic codemods + an LLM), verifies every
+  change with your test suite, and opens a pull request.
+branding:
+  icon: git-pull-request
+  color: blue
+
+inputs:
+  path:
+    description: Folder to migrate (default: the repository root)
+    default: "."
+  provider:
+    description: "groq, claude, or none (codemods only)"
+    default: groq
+  model:
+    description: Model name (default depends on the provider)
+    default: ""
+  python-version:
+    description: Python version used to run your tests
+    default: "3.12"
+  install:
+    description: Command that installs your project and its test dependencies
+    default: "pip install -r requirements.txt"
+  strict:
+    description: Treat FutureWarning (deprecations) as test failures
+    default: "false"
+  branch:
+    description: Branch the pull request is opened from
+    default: apishift/pandas-2
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install your project
+      shell: bash
+      run: ${{ inputs.install }} && pip install pytest
+
+    - name: Install APIShift
+      shell: bash
+      run: pip install "${{ github.action_path }}[all]"
+
+    - name: Migrate, verify and open a pull request
+      shell: bash
+      env:
+        APISHIFT_PROVIDER: ${{ inputs.provider }}
+        APISHIFT_GROQ_MODEL: ${{ inputs.provider == 'groq' && inputs.model || '' }}
+        APISHIFT_CLAUDE_MODEL: ${{ inputs.provider == 'claude' && inputs.model || '' }}
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        args=(fix "${{ inputs.path }}" --pr --branch "${{ inputs.branch }}" --report apishift-report.md)
+        [ "${{ inputs.strict }}" = "true" ] && args+=(--strict)
+        apishift "${args[@]}"
+        cat apishift-report.md >> "$GITHUB_STEP_SUMMARY"
