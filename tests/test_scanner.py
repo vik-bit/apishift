@@ -34,6 +34,15 @@ def test_self_attributes_are_tracked_per_class():
     assert rules(src) == [("PD001", 7)]
 
 
+def test_self_attribute_from_annotated_parameter():
+    # Found on the demo repo: self.sales = sales must carry the parameter's annotation into other methods.
+    src = ("import pandas as pd\nclass R:\n    def __init__(self, sales: pd.DataFrame):\n        self.sales = sales\n"
+           "    def build(self):\n        for region, group in self.sales.groupby('region'):\n"
+           "            amounts = group['amount']\n            amounts.mad()\n")
+    [f] = scan_source(src)
+    assert (f.rule_id, f.line, f.receiver_kind) == ("PD003", 8, "Pandas")
+
+
 def test_return_types_flow_between_functions():
     src = "import pandas as pd\ndef load():\n    return pd.read_csv('x')\ndef main():\n    d = load()\n    d.append(d)\n"
     assert rules(src, "certain") == [("PD001", 6)]

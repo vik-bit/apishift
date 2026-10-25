@@ -461,6 +461,7 @@ class _Analyzer:
             self.check_expr(d, env)
         returns: Kind | None = self.annotation_kind(fn.returns)
         self.run_block(fn.body, env)
+        self._last_env = env  # run_class reads self.<attr> kinds from here
         if returns is None:
             for node in ast.walk(fn):
                 if isinstance(node, ast.Return) and node.value is not None:
@@ -473,15 +474,11 @@ class _Analyzer:
             if isinstance(stmt, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 ret = self.run_function(stmt, outer, attrs)
                 attrs[f"self.{stmt.name}()"] = ret
-                # remember self.<x> assignments for the other methods
-                env = dict(outer)
-                env.update(attrs)
-                for node in ast.walk(stmt):
-                    if isinstance(node, ast.Assign):
-                        for t in node.targets:
-                            d = _dotted(t)
-                            if d and d.startswith("self."):
-                                attrs[d] = join(attrs.get(d), self.kind(node.value, env))
+                # Remember what this method left in self.<x> for the other methods. Read it from the
+                # method's own environment, so `self.df = df` sees the parameter's annotation.
+                for key, kind in self._last_env.items():
+                    if key.startswith("self.") and not key.endswith("()"):
+                        attrs[key] = join(attrs.get(key), kind)
             else:
                 self.run_stmt(stmt, outer, nested=False)
 
