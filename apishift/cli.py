@@ -90,9 +90,9 @@ def cmd_rules(args) -> int:
 
 
 def cmd_bench_check(args) -> int:
-    from .eval.benchmark import check, load_cases
+    from .eval.benchmark import SUITES, check, load_cases
 
-    results = check(load_cases(only=args.case))
+    results = check(load_cases(SUITES[args.suite], only=args.case))
     for r in results:
         _log(f"{'ok  ' if r.ok else 'FAIL'} {r.case}" + "".join(f"\n       {p}" for p in r.problems))
     bad = [r for r in results if not r.ok]
@@ -103,7 +103,7 @@ def cmd_bench_check(args) -> int:
 def cmd_eval(args) -> int:
     from .eval.report import run_eval
 
-    run_eval(modes=args.modes.split(","), only=args.case, log=_log)
+    run_eval(modes=args.modes.split(","), only=args.case, log=_log, suite=args.suite)
     return 0
 
 
@@ -137,11 +137,14 @@ def main(argv: list[str] | None = None) -> int:
 
     b = sub.add_parser("bench-check", help="validate the benchmark cases (no LLM)")
     b.add_argument("--case", help="only cases whose id contains this text")
+    b.add_argument("--suite", choices=["self-written", "external"], default="self-written")
     b.set_defaults(fn=cmd_bench_check)
 
     e = sub.add_parser("eval", help="score the methods on the benchmark")
     e.add_argument("--modes", default="codemod,llm-one-shot,apishift")
     e.add_argument("--case", help="only cases whose id contains this text")
+    e.add_argument("--suite", choices=["self-written", "external"], default="self-written",
+                   help="external: cases cut from real open-source migrations, reported separately")
     e.set_defaults(fn=cmd_eval)
 
     args = p.parse_args(argv)

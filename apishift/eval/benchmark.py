@@ -26,6 +26,10 @@ from ..fix.orchestrator import Options, migrate
 from ..fix.verifier import Workspace
 
 CASES_DIR = PROJECT_ROOT / "bench" / "cases"
+# Cases cut from real open-source pandas 2 migrations (bench/external/README.md), scored apart
+# from the 28 written for this project.
+EXTERNAL_DIR = PROJECT_ROOT / "bench" / "external"
+SUITES = {"self-written": CASES_DIR, "external": EXTERNAL_DIR}
 
 
 @dataclass
@@ -38,6 +42,7 @@ class Case:
     kind: str  # "positive" or "negative"
     strict: bool  # True when only deprecations are involved (passes on 2.2 unless warnings are errors)
     difficulty: str
+    source: dict | None = None  # external cases: upstream repository, commits, license, what was adapted
 
     @property
     def source_rel(self) -> str:
