@@ -7,7 +7,7 @@ import httpx
 
 from apishift.analysis import scan_source
 from apishift.analysis.sarif import to_sarif
-from apishift.eval.benchmark import check, load_cases
+from apishift.eval.benchmark import EXTERNAL_DIR, check, load_cases
 from apishift.fix.llm import GroqProvider
 from apishift.fix.llm_fixer import extract_code, mark_lines
 from apishift.rules import RULES, rules_markdown
@@ -54,3 +54,13 @@ def test_every_benchmark_case_is_fair():
     results = check(load_cases())
     assert len(results) >= 28
     assert [r.case for r in results if not r.ok] == []
+
+
+def test_every_external_case_is_fair_and_sourced():
+    """Same check for the cases cut from real migrations, which must also say where they came from."""
+    cases = load_cases(EXTERNAL_DIR)
+    assert len(cases) >= 3
+    for case in cases:
+        assert case.source and {"repository", "license", "before", "upstream_fix"} <= set(case.source), case.id
+        assert (case.dir / "LICENSE.upstream").is_file(), case.id
+    assert [r.case for r in check(cases) if not r.ok] == []

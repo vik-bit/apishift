@@ -1,0 +1,23 @@
+{
+  "id": "e01-timeflux-window",
+  "module": "window",
+  "rules": [
+    "PD001",
+    "PD006"
+  ],
+  "description": "Streaming window nodes: Series/DataFrame append on a buffer and Index.is_monotonic",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy",
+  "source": {
+    "repository": "https://github.com/timeflux/timeflux",
+    "license": "MIT",
+    "file": "timeflux/nodes/window.py",
+    "before": "51ae887d5453b36ed0ddbbbbed5a5d70764f9a45",
+    "upstream_fix": ["5cd170c0f1c4", "0a1012e94c60"],
+    "solution": "window.py at 0a1012e94c60, unchanged",
+    "tests": "test/nodes/test_window.py at the 'before' commit; changed only the import of the node module and the expected logger name, which follows the module path",
+    "adapted": "tests/timeflux/ holds the parts of timeflux the module and tests import: Node (unchanged), Port without set(), WorkerInterrupt, and DummyData",
+    "note": "Upstream needed two commits a month apart: the first replaced append but left is_monotonic, which still raises AttributeError on pandas 2."
+  }
+}

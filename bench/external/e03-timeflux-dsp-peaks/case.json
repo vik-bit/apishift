@@ -1,0 +1,24 @@
+{
+  "id": "e03-timeflux-dsp-peaks",
+  "module": "peaks",
+  "rules": [
+    "PD001"
+  ],
+  "description": "Streaming peak detectors append each detected event to the output DataFrame",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "medium",
+  "source": {
+    "repository": "https://github.com/timeflux/timeflux_dsp",
+    "license": "MIT",
+    "file": "timeflux_dsp/nodes/peaks.py",
+    "before": "2a47d47",
+    "upstream_fix": [
+      "cdd75dd04d35"
+    ],
+    "solution": "peaks.py at cdd75dd04d35, unchanged",
+    "tests": "test/test_peaks.py at the 'before' commit; changed the import of the node module and replaced pandas.util.testing.makeTimeDataFrame (removed in pandas 2) with an equivalent all-zero frame whose values the test overwrites",
+    "adapted": "tests/data/test_data_ppg.csv cut to the 200 rows the fixture reads; tests/timeflux/ holds the parts of timeflux (MIT, see LICENSE.timeflux) the module and tests import: Node, Port, ReadData, Looper and clock.now",
+    "note": "np.Inf (removed in NumPy 2) is changed to np.inf in both src and solution, so the case isolates the pandas migration; upstream made that change separately."
+  }
+}

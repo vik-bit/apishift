@@ -1,0 +1,22 @@
+{
+  "id": "e02-epathermostat-climate-zone",
+  "module": "climate_zone",
+  "rules": [
+    "PD002"
+  ],
+  "description": "Climate-zone lookup builds dicts with Series.iteritems",
+  "kind": "positive",
+  "strict": false,
+  "difficulty": "easy",
+  "source": {
+    "repository": "https://github.com/EPAENERGYSTAR/epathermostat",
+    "license": "MIT",
+    "file": "thermostat/climate_zone.py",
+    "before": "ba5e12d95011",
+    "upstream_fix": ["97153b118159"],
+    "solution": "climate_zone.py at 97153b118159, unchanged",
+    "tests": "tests/test_climate_zone.py from the fix commit (written upstream with the fix); changed only the import of the module",
+    "adapted": "tests/thermostat/resources/ holds regional_baselines.csv unchanged and the zipcode mapping cut to its header and 4 rows; tests/pkg_resources.py is a 3-line stand-in for setuptools' resource_stream",
+    "note": "The same commit also fixed two iteritems calls in thermostat/stats.py; this case covers climate_zone.py only."
+  }
+}
