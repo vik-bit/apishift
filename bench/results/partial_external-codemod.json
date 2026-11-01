@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-01",
+  "model": "none",
+  "summary": {
+    "codemod": {
+      "cases": 3,
+      "fixed": 3,
+      "positive": 3,
+      "hard_fixed": 0,
+      "hard": 0,
+      "negatives_untouched": 0,
+      "negative": 0,
+      "needed_retry": 0,
+      "fixed_first_try": 3,
+      "llm_calls": 0,
+      "tokens": 0,
+      "seconds": 3,
+      "errors": []
+    }
+  },
+  "cases": {
+    "codemod": [
+      {
+        "case": "e01-timeflux-window",
+        "kind": "positive",
+        "difficulty": "easy",
+        "mode": "codemod",
+        "success": true,
+        "tests_pass": true,
+        "changed": true,
+        "remaining": [],
+        "llm_calls": 0,
+        "tokens": 0,
+        "llm_attempts": 0,
+        "seconds": 1.0,
+        "error": ""
+      },
+      {
+        "case": "e02-epathermostat-climate-zone",
+        "kind": "positive",
+        "difficulty": "easy",
+        "mode": "codemod",
+        "success": true,
+        "tests_pass": true,
+        "changed": true,
+        "remaining": [],
+        "llm_calls": 0,
+        "tokens": 0,
+        "llm_attempts": 0,
+        "seconds": 0.8,
+        "error": ""
+      },
+      {
+        "case": "e03-timeflux-dsp-peaks",
+        "kind": "positive",
+        "difficulty": "medium",
+        "mode": "codemod",
+        "success": true,
+        "tests_pass": true,
+        "changed": true,
+        "remaining": [],
+        "llm_calls": 0,
+        "tokens": 0,
+        "llm_attempts": 0,
+        "seconds": 0.9,
+        "error": ""
+      }
+    ]
+  }
+}

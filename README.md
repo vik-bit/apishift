@@ -104,6 +104,13 @@ fix must also be ready for pandas 3. **Negative cases** (`list.append`, a custom
   main value is the **guarantee**. Every accepted change passed the tests, and anything that couldn't
   is reverted and labelled instead of shipped.
 
+**Cases from real projects.** [`bench/external/`](bench/external) holds 3 cases cut from real
+pandas 2 fixes in open-source projects (timeflux, timeflux_dsp, EPA's epathermostat). Each uses the
+upstream code before and after the fix and the project's own tests, and is scored separately.
+Codemods alone fix **3/3**; for timeflux, the codemod also fixed an `is_monotonic` call that the
+upstream fix missed and patched a month later. Three cases is a small set: it shows the tool works
+on code it wasn't written against, not how often it succeeds.
+
 ---
 
 ## How it works
@@ -206,6 +213,7 @@ apishift/
 ├── rules.py       the rule catalogue (single source of truth)
 └── cli.py
 bench/cases/       28 cases: src/ (old code) · tests/ · solution/ (reference fix)
+bench/external/    3 cases from real open-source migrations, with upstream tests
 tests/             unit tests, including the full fix loop against a scripted LLM
 action.yml         GitHub Action
 ```
@@ -216,8 +224,9 @@ action.yml         GitHub Action
 
 - **Tests are the contract.** A change in code no test covers can be wrong without being caught;
   the PR says so when a project has no tests.
-- **The benchmark is hand-written:** 28 small cases modelled on common real-world patterns. The next
-  step is to run it on open-source repositories pinned to pandas < 2.
+- **The benchmark is mostly hand-written:** 28 small cases modelled on common real-world patterns,
+  plus 3 [external cases](bench/external) from real migrations. Most real fixes found had no tests
+  for the changed code, so the external set is small; the LLM modes have not been run on it yet.
 - **Next:** pandas 3 rules (Copy-on-Write and string-dtype changes), Jupyter notebooks, and more
   migrations on the same engine (Pydantic v1 → v2, SQLAlchemy 1.4 → 2.0).
 
