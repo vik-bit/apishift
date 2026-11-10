@@ -64,3 +64,12 @@ def test_every_external_case_is_fair_and_sourced():
         assert case.source and {"repository", "license", "before", "upstream_fix"} <= set(case.source), case.id
         assert (case.dir / "LICENSE.upstream").is_file(), case.id
     assert [r.case for r in check(cases) if not r.ok] == []
+
+
+def test_report_names_the_results_file_actually_written():
+    """A partial run writes partial-*.json; its report must point there, not at results.json."""
+    from apishift.eval.report import write_markdown
+
+    md = write_markdown({}, "none", 0, suite="external", raw_name="partial_external-codemod.json")
+    assert "`bench/results/partial_external-codemod.json`" in md
+    assert "results_external.json" not in md

@@ -17,7 +17,8 @@ def _pct(a: int, b: int) -> str:
     return f"{a}/{b} ({100 * a / b:.0f}%)" if b else "-"
 
 
-def write_markdown(results: dict[str, list[CaseScore]], model: str, n_cases: int, suite: str = "self-written") -> str:
+def write_markdown(results: dict[str, list[CaseScore]], model: str, n_cases: int, suite: str = "self-written",
+                   raw_name: str = "results.json") -> str:
     sums = {m: summarise(s) for m, s in results.items()}
     lines = [
         "# Evaluation results" + (" (external cases)" if suite == "external" else ""), "",
@@ -56,8 +57,7 @@ def write_markdown(results: dict[str, list[CaseScore]], model: str, n_cases: int
     errors = [e for s in sums.values() for e in s["errors"]]
     if errors:
         lines += ["", "**Errors during the run:**", *[f"- {e}" for e in errors]]
-    raw = "results.json" if suite == "self-written" else "results_external.json"
-    lines += ["", f"Raw per-case numbers: `bench/results/{raw}`.", ""]
+    lines += ["", f"Raw per-case numbers: `bench/results/{raw_name}`.", ""]
     return "\n".join(lines)
 
 
@@ -90,7 +90,7 @@ def run_eval(modes: list[str], only: str | None = None, log: Callable[[str], Non
         "summary": {m: summarise(s) for m, s in results.items()},
         "cases": {m: to_json(s) for m, s in results.items()},
     }, indent=2, ensure_ascii=False), encoding="utf-8")
-    md = write_markdown(results, settings.model, len(cases), suite)
+    md = write_markdown(results, settings.model, len(cases), suite, raw_name=name)
     doc = f"EVAL_RESULTS{tag.upper()}.md"
     if full:  # only a complete run may replace the published results
         (PROJECT_ROOT / "docs" / doc).write_text(md, encoding="utf-8")
